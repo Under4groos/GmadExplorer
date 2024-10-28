@@ -3,10 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GmadExplorer"
+        xmlns:local="clr-namespace:GmadExplorer" 
+        xmlns:components="clr-namespace:GmadExplorer.View.Components" 
+        xmlns:view="clr-namespace:GmadExplorer.View"
         mc:Ignorable="d"
+        WindowStyle="None" 
+        AllowsTransparency="True"
+         MinHeight="200" MinWidth="200" 
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <Window.Effect>
+        <DropShadowEffect RenderingBias="Performance" ShadowDepth="0" BlurRadius="10" Color="#27b3ff" Opacity="0"/>
+    </Window.Effect>
+    <Window.Background>
+        <SolidColorBrush Color="Transparent"></SolidColorBrush>
+    </Window.Background>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding refreshAll}" Key="F5"/>
+    </Window.InputBindings>
+    <Window.Style>
+        <Style>
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome CaptionHeight="0"
+ CornerRadius="0"
+ GlassFrameThickness="4"
+ NonClientFrameEdges="None"
+ ResizeBorderThickness="4"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Style>
+    <components:Corner8Border Background="{DynamicResource Window.Background}" BorderBrush="{DynamicResource Window.Border}">
+        <Grid>
+            <components:TopBar/>
+            <view:MainFrame Margin="5,35,5,5"/>
+        </Grid>
+    </components:Corner8Border>
 </Window>
