@@ -57,7 +57,7 @@ namespace GmadExplorer.View
 #endif
             App.Addon = RealtimeAddon.Load(addon, !FileExtensions.CanWrite(addon));
             var list_files = App.Addon.OpenAddon.GetDictionaryFiles();
-
+            VirtualTreeViewItem TreeOwner =  VirtualTreeViewItem.CreateChild(addon);
             foreach (var item in list_files)
             {
                 var list_path = item.Key.Split(@"\");
@@ -71,7 +71,11 @@ namespace GmadExplorer.View
                 {
                     Header = path_
                 };
+                //TreeOwner.AppendItem(path_, virtualTreeViewItem);
                 _list_files.AppendItem(path_, virtualTreeViewItem);
+
+
+
                 var lll_ = VirtualTreeViewItem.CreateChild_Rec(virtualTreeViewItem, list_path);
                 foreach (var asd in item.Value)
                 {
@@ -79,6 +83,7 @@ namespace GmadExplorer.View
 
                 }
             }
+            
         }
     }
 }

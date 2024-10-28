@@ -10,7 +10,7 @@
         WindowStyle="None" 
         AllowsTransparency="True"
          MinHeight="200" MinWidth="200" 
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="1200">
     <Window.Effect>
         <DropShadowEffect RenderingBias="Performance" ShadowDepth="0" BlurRadius="10" Color="#27b3ff" Opacity="0"/>
     </Window.Effect>
