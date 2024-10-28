@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="Window.Background" Color="#121212" Opacity="0.995"></SolidColorBrush>
+    <SolidColorBrush x:Key="Window.Border" Color="White" Opacity="0.1"></SolidColorBrush>
+
+
+
+    <SolidColorBrush x:Key="border.base" Color="White" Opacity="0.01"></SolidColorBrush>
+    <SolidColorBrush x:Key="border.hover" Color="#16FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="border.hover_close" Color="#B2FF0000"></SolidColorBrush>
+    <SolidColorBrush x:Key="border.brush_border" Color="#414246" Opacity="0.4"></SolidColorBrush>
+    
+
+
+    <SolidColorBrush x:Key="svg.Fill" Color="White" Opacity="1"></SolidColorBrush>
+
+
+    <!--LOG-->
+    <SolidColorBrush x:Key="ERROR" Color="#c04048" Opacity="1"></SolidColorBrush>
+    <SolidColorBrush x:Key="INFO" Color="White" Opacity="1"></SolidColorBrush>
+    <SolidColorBrush x:Key="WARNING" Color="#fad900" Opacity="1"></SolidColorBrush>
+    <SolidColorBrush x:Key="SERVER" Color="#2aa2de" Opacity="1"></SolidColorBrush>
+    
+    
+    
+    <!--label-->
+
+    <SolidColorBrush x:Key="label.color.base" Color="White" Opacity="1"></SolidColorBrush>
+    <SolidColorBrush x:Key="label.color.Enabled" Color="#4D4D4D" Opacity="1"></SolidColorBrush>
+ 
+
+</ResourceDictionary>

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Legacy.cs" />
+    <Compile Remove="Main.cs" />
+    <Compile Remove="Main.Designer.cs" />
+    <Compile Remove="Program.cs" />
+    <Compile Remove="RealtimeCommandline.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Main.resx" />
+  </ItemGroup>
+
+</Project>
