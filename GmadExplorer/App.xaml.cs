@@ -1,4 +1,5 @@
-﻿using SharpGMad;
+﻿using GmadExplorer.View.Components.TreeViewItem;
+using SharpGMad;
 using System.Configuration;
 using System.Data;
 using System.IO;
@@ -14,7 +15,7 @@ namespace GmadExplorer
         public static string PathIcon = "Icon0";
         public static RealtimeAddon Addon;
         public static Dictionary<string, string> Icons = new Dictionary<string, string>();
-
+        public static Dictionary<string, VirtualTreeViewItem> VirtualTreeViewItems = new Dictionary<string, VirtualTreeViewItem>();
         public App()
         {
 

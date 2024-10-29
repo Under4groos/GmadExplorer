@@ -3,6 +3,7 @@ using GmadExplorer.View.Components.TreeViewItem;
 using SharpGMad;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,7 @@ namespace GmadExplorer.View
 
             this.Loaded += MainFrame_Loaded;
 
-
+            
 
         }
 
@@ -44,7 +45,6 @@ namespace GmadExplorer.View
         {
             public string Path;
             public VirtualTreeViewItem Tree;
-
             List<ExplorerAddon> Items;
         }
 
@@ -55,35 +55,138 @@ namespace GmadExplorer.View
 #else
             string addon = @"104619813.gma";
 #endif
+
+            LoadAddon(addon);
+        }
+        void LoadAddon(string addon)
+        {
+            this.Clear();
             App.Addon = RealtimeAddon.Load(addon, !FileExtensions.CanWrite(addon));
-            var list_files = App.Addon.OpenAddon.GetDictionaryFiles();
-            VirtualTreeViewItem TreeOwner =  VirtualTreeViewItem.CreateChild(addon);
-            foreach (var item in list_files)
-            {
-                var list_path = item.Key.Split(@"\");
-
-                string path_ = list_path[0];
-                if (ExtControls.ListVirtualTreeViewItem.ContainsKey(path_))
-                {
-                    continue;
-                }
-                VirtualTreeViewItem virtualTreeViewItem = new VirtualTreeViewItem()
-                {
-                    Header = path_
-                };
-                //TreeOwner.AppendItem(path_, virtualTreeViewItem);
-                _list_files.AppendItem(path_, virtualTreeViewItem);
+            Addon OpenAddon = App.Addon.OpenAddon;
+            string AddonName = System.IO.Path.GetFileName(addon).Replace(System.IO.Path.GetExtension(addon), "") + $"_{OpenAddon.Title}";
+            RenderControls(OpenAddon, AddonName , System.IO.Path.GetFileName(addon));
 
 
+        }
 
-                var lll_ = VirtualTreeViewItem.CreateChild_Rec(virtualTreeViewItem, list_path);
-                foreach (var asd in item.Value)
-                {
-                    lll_.AppendItem(VirtualTreeViewItem.CreateChild(asd));
+        
 
-                }
-            }
+        void RenderControls(Addon OpenAddon, string AddonName , string Name)
+        {
             
+            List<ContentFile> listfiles = OpenAddon.Files;
+
+            VirtualTreeViewItem __base = VirtualTreeViewItem.Create_FolderChild(Name);
+            this._list_files.AppendItem(__base);
+
+            foreach (ContentFile item in listfiles)
+            {
+                string path_ = item.Path;
+
+                Debug.WriteLine($"\"{path_}\",");
+
+
+                string[] spl_path = path_.Split("/");
+
+                //VirtualTreeViewItem.CreateChild_dow(base_____, spl_path);
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+        }
+
+
+
+        public void Clear()
+        {
+            _list_files.Items.Clear();
+            textBox.Text = "";
+        }
+
+        //void LoadAddon(string addon)
+        //{
+
+
+        //    _list_files.Items.Clear();
+
+        //    App.Addon = RealtimeAddon.Load(addon, !FileExtensions.CanWrite(addon));
+        //    var OpenAddon = App.Addon.OpenAddon;
+
+
+        //    string FileName = System.IO.Path.GetFileName(addon).Replace(System.IO.Path.GetExtension(addon), "") + $"_{OpenAddon.Title}";
+
+
+
+        //    var list_files = OpenAddon.GetDictionaryFiles();
+        //    VirtualTreeViewItem TreeOwner = VirtualTreeViewItem.CreateChild(addon);
+        //    foreach (var item in list_files)
+        //    {
+        //        var list_path = item.Key.Split(@"\");
+
+        //        string path_ = list_path[0];
+        //        if (ExtControls.ListVirtualTreeViewItem.ContainsKey(path_))
+        //        {
+        //            continue;
+        //        }
+        //        VirtualTreeViewItem virtualTreeViewItem = new VirtualTreeViewItem()
+        //        {
+        //            Header = path_
+        //        };
+        //        //TreeOwner.AppendItem(path_, virtualTreeViewItem);
+        //        _list_files.AppendItem(path_, virtualTreeViewItem);
+
+
+
+        //        var lll_ = VirtualTreeViewItem.CreateChild_Rec(virtualTreeViewItem, list_path);
+        //        foreach (var asd in item.Value)
+        //        {
+        //            lll_.AppendItem(VirtualTreeViewItem.CreateChild(asd , (VirtualTreeViewItem mi) =>
+        //            {
+
+
+
+
+        //                string path_export_ = ContentFile.GenerateExternalPathLocal(FileName, mi.ContentFile.Path);
+        //                if (Directory.Exists(path_export_))
+        //                {
+        //                    File.WriteAllBytes(path_export_, mi.ContentFile.Content);
+        //                }
+        //                textBox.Text = path_export_ + "\n" + System.Text.Encoding.UTF8.GetString(mi.ContentFile.Content);
+
+        //            }));
+
+        //        }
+        //    }
+        //}
+
+        private void DropFile(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {            
+                string file = ((string[])(e.Data.GetData(DataFormats.FileDrop))).First();
+                if(System.IO.Path.GetExtension(file) == ".gma")
+                {
+                    LoadAddon(file);
+                }
+                
+            }
         }
     }
 }

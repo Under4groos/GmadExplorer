@@ -4,42 +4,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GmadExplorer.View.Components.TreeViewItem
 {
     public class VirtualTreeViewItem : base_VirtualTreeViewItem
     {
-        public static VirtualTreeViewItem CreateChild(SharpGMad.ContentFile _ContentFile)
+
+        public static bool IsValidPath(string FullPath)
         {
-            return new VirtualTreeViewItem()
+            return App.VirtualTreeViewItems.ContainsKey(FullPath);
+        }
+
+
+        public static VirtualTreeViewItem Create_FileChild(
+            SharpGMad.ContentFile _ContentFile , 
+            Action<VirtualTreeViewItem> EventDoubleClick = null
+            )
+        {
+            var vtvi = new VirtualTreeViewItem()
             {
                 ContentFile = _ContentFile
             };
+            if(EventDoubleClick != null)
+                vtvi.PreviewMouseLeftButtonDown += (o, e) =>
+                {
+                    if(e.ClickCount > 1)
+                    {
+                        EventDoubleClick?.Invoke(vtvi);
+                    }
+                };
+            return vtvi;
         }
 
-        public static VirtualTreeViewItem CreateChild_Rec(VirtualTreeViewItem VirtualTreeViewItem, string[] req)
-        {
-            VirtualTreeViewItem VirtualTreeViewItem_ = VirtualTreeViewItem;
-            string path_ = "";
-            for (int i = 1; i < req.Length; i++)
-            {
-
-                string p = req[i];
-                path_ = System.IO.Path.Combine(path_, p);
-                var v = CreateChild(p.ToString());
-
-                VirtualTreeViewItem_.AppendItem(path_, v);
-
-                VirtualTreeViewItem_ = v;
-            }
-            return VirtualTreeViewItem_;
-        }
-
-        public static VirtualTreeViewItem CreateChild(string Header)
+        public static VirtualTreeViewItem Create_FolderChild(string Header)
         {
             return new VirtualTreeViewItem()
             {
-                Header = Header
+                Header = Header,
+
+                
             };
         }
 

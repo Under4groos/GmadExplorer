@@ -7,10 +7,14 @@ namespace GmadExplorer.View.Components.TreeViewItem
 {
     public class base_VirtualTreeViewItem : System.Windows.Controls.TreeViewItem
     {
-        public SharpGMad.ContentFile.ContentStorageType StorageType
+        
+        public string FullPath
         {
-            get; set;
+            get;set;
         }
+
+       
+
 
         private SharpGMad.ContentFile _contentFile;
         public SharpGMad.ContentFile ContentFile
@@ -24,12 +28,8 @@ namespace GmadExplorer.View.Components.TreeViewItem
                 _contentFile = value;
                 if (_contentFile != null)
                 {
-                    //this.Header = _contentFile.Path; //  Path.GetFileName(_contentFile.Path);
-
-
                     this.Header = value.GetName;
                 }
-
             }
         }
 

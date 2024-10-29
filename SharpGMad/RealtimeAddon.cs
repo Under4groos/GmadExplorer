@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 
 namespace SharpGMad
 {
@@ -48,6 +49,7 @@ namespace SharpGMad
     /// </summary>
     public class RealtimeAddon
     {
+        public static string TempPath = Path.GetFullPath("LocalTemp");
         /// <summary>
         /// The addon handled by the current RealtimeAddon instance.
         /// </summary>
@@ -143,12 +145,12 @@ namespace SharpGMad
                 else
                     fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
             }
-            catch (IOException)
+            catch (IOException e)
             {
                 if (fs != null)
                     fs.Dispose();
 
-                throw;
+                Debug.WriteLine(e);
             }
 
             Reader r;
@@ -156,14 +158,16 @@ namespace SharpGMad
             {
                 r = new Reader(fs);
             }
-            catch (IOException)
+            catch (IOException e)
             {
                 fs.Dispose();
+                Debug.WriteLine(e);
                 throw;
             }
-            catch (ReaderException)
+            catch (ReaderException e)
             {
                 fs.Dispose();
+                Debug.WriteLine(e);
                 throw;
             }
 
@@ -172,19 +176,22 @@ namespace SharpGMad
             {
                 addon = new Addon(r);
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
                 fs.Dispose();
+                Debug.WriteLine(e);
                 throw;
             }
-            catch (WhitelistException)
+            catch (WhitelistException e)
             {
                 fs.Dispose();
+                Debug.WriteLine(e);
                 throw;
             }
-            catch (IgnoredException)
+            catch (IgnoredException e)
             {
                 fs.Dispose();
+                Debug.WriteLine(e);
                 throw;
             }
 

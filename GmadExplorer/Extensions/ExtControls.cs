@@ -72,19 +72,19 @@ namespace GmadExplorer.Extensions
 
         public static void AppendItem(this System.Windows.Controls.TreeView treeView, object item)
         => treeView.Items.Add(item);
-        public static void AppendItem(this System.Windows.Controls.TreeView treeView, string pathall, object item)
-        {
-            if (!ListVirtualTreeViewItem.ContainsKey(pathall))
-            {
-                treeView.AppendItem(item);
-                ListVirtualTreeViewItem.Add(pathall, item as VirtualTreeViewItem);
-            }
-            else
-            {
-                ListVirtualTreeViewItem[pathall].AppendItem(item);
-            }
+        //public static void AppendItem(this System.Windows.Controls.TreeView treeView, string pathall, object item)
+        //{
+        //    if (!ListVirtualTreeViewItem.ContainsKey(pathall))
+        //    {
+        //        treeView.AppendItem(item);
+        //        ListVirtualTreeViewItem.Add(pathall, item as VirtualTreeViewItem);
+        //    }
+        //    else
+        //    {
+        //        ListVirtualTreeViewItem[pathall].AppendItem(item);
+        //    }
 
-        }
+        //}
 
         public static void AppendItem(this VirtualTreeViewItem treeView, object item)
         => treeView.Items.Add(item);
@@ -92,15 +92,30 @@ namespace GmadExplorer.Extensions
 
 
         public static Dictionary<string, VirtualTreeViewItem> ListVirtualTreeViewItem = new Dictionary<string, VirtualTreeViewItem>();
-        public static void AppendItem(this VirtualTreeViewItem treeView, string pathall, object item)
+
+
+        public static bool VirtualTreeIsValid(string path)
         {
-            if (!ListVirtualTreeViewItem.ContainsKey(pathall))
+            return ListVirtualTreeViewItem.ContainsKey(path);
+        }
+        public static VirtualTreeViewItem VirtualTreeGet(string path)
+        {
+            if (VirtualTreeIsValid(path))
+                return ListVirtualTreeViewItem[path];
+            return null;
+        }
+        public static bool AppendItem(this VirtualTreeViewItem treeView, string pathall, object item)
+        {
+            if (!VirtualTreeIsValid(pathall))
             {
                 treeView.AppendItem(item);
+                ListVirtualTreeViewItem.Add(pathall, item as VirtualTreeViewItem);
+                return false;
             }
             else
             {
                 ListVirtualTreeViewItem[pathall].AppendItem(item);
+                return true;
             }
 
         }

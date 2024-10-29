@@ -26,6 +26,8 @@ namespace SharpGMad
     /// </summary>
     public class Addon
     {
+        
+
         /// <summary>
         /// The identation (first few characters) of GMA files.
         /// </summary>
@@ -595,7 +597,26 @@ namespace SharpGMad
 
             return System.IO.Path.GetTempPath() + tempname + "_sharpgmad_" + System.IO.Path.GetFileName(path) + ".tmp";
         }
+        public static string GenerateExternalPathLocal( string addonname, string path)
+        {
+            
+            if (!Directory.Exists(RealtimeAddon.TempPath))
+            {
+                Directory.CreateDirectory(RealtimeAddon.TempPath);
+            }
+            string DirectoryPathFile = System.IO.Path.Combine(RealtimeAddon.TempPath, addonname, System.IO.Path.GetDirectoryName(path));
 
+
+
+            if (!Directory.Exists(DirectoryPathFile))
+            {
+                Directory.CreateDirectory(DirectoryPathFile);
+            }
+
+            string tempname = System.IO.Path.Combine(DirectoryPathFile , System.IO.Path.GetFileName(path));
+
+            return tempname;
+        }
 
 
         /// <summary>
