@@ -98,27 +98,36 @@ namespace GmadExplorer.Extensions
         {
             return ListVirtualTreeViewItem.ContainsKey(path);
         }
-        public static VirtualTreeViewItem VirtualTreeGet(string path)
+        public static bool VirtualTreeAddNewPath(VirtualTreeViewItem panel, string path)
+        {
+            if (!VirtualTreeIsValid(path))
+            {
+                ListVirtualTreeViewItem.Add(path , panel);
+                return true;
+            }
+            return false;
+        }
+        public static VirtualTreeViewItem GetVirtualTree(string path)
         {
             if (VirtualTreeIsValid(path))
                 return ListVirtualTreeViewItem[path];
             return null;
         }
-        public static bool AppendItem(this VirtualTreeViewItem treeView, string pathall, object item)
-        {
-            if (!VirtualTreeIsValid(pathall))
-            {
-                treeView.AppendItem(item);
-                ListVirtualTreeViewItem.Add(pathall, item as VirtualTreeViewItem);
-                return false;
-            }
-            else
-            {
-                ListVirtualTreeViewItem[pathall].AppendItem(item);
-                return true;
-            }
+        //public static bool AppendItem(this VirtualTreeViewItem treeView, string pathall, object item)
+        //{
+        //    if (!VirtualTreeIsValid(pathall))
+        //    {
+        //        treeView.AppendItem(item);
+        //        ListVirtualTreeViewItem.Add(pathall, item as VirtualTreeViewItem);
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        ListVirtualTreeViewItem[pathall].AppendItem(item);
+        //        return true;
+        //    }
 
-        }
+        //}
 
 
 

@@ -54,7 +54,7 @@ namespace GmadExplorer.View.Components.TreeViewItem
         {
             this.Foreground = Brushes.White;
             this.Loaded += Base_VirtualTreeViewItem_LayoutUpdated;
-            this.IsExpanded = true;
+            this.IsExpanded = false;
 
         }
 

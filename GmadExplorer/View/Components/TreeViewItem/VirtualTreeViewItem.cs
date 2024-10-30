@@ -11,6 +11,13 @@ namespace GmadExplorer.View.Components.TreeViewItem
     public class VirtualTreeViewItem : base_VirtualTreeViewItem
     {
 
+        public VirtualTreeViewItem() : base() 
+        {
+            this.IsExpanded = true;
+        }
+      
+      
+
         public static bool IsValidPath(string FullPath)
         {
             return App.VirtualTreeViewItems.ContainsKey(FullPath);
