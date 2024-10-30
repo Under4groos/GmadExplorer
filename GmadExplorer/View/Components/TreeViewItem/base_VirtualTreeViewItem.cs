@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Media;
+using UI.SyntaxBox;
 
 namespace GmadExplorer.View.Components.TreeViewItem
 {
@@ -105,7 +106,7 @@ namespace GmadExplorer.View.Components.TreeViewItem
         {
             if (this.Icon == null)
                 return false;
-
+           
             return this.Icon.SetImage(path);
         }
 

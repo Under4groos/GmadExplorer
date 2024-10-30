@@ -47,6 +47,8 @@ namespace GmadExplorer.Extensions
             };
 
             var cm = frameworkElement.ContextMenu;
+            if (cm == null)
+                return null;
             cm.Items.Add(cm_item);
             return cm;
         }

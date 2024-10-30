@@ -13,8 +13,9 @@
                 <ResourceDictionary Source="Resource/Style/ToggleButton.xaml"/>
                 <ResourceDictionary Source="Resource/Style/ScrollViewer.xaml"/>
                 <ResourceDictionary Source="Resource/Style/TreeView.xaml"/>
-                <ResourceDictionary Source="Resource/Style/Label.xaml"/>
+                <ResourceDictionary Source="Resource/Style/Label.xaml"/> 
                 <ResourceDictionary Source="Resource/Style/ContextMenu.xaml"/>
+                <ResourceDictionary Source="Resource\Syntax\EditorKeywords.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

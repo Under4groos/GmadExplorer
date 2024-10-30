@@ -14,7 +14,7 @@
     <Grid>
         <Grid  >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="400"/>
                 <ColumnDefinition Width="3"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
@@ -29,48 +29,36 @@
                     <StackPanel>
                         <TextBox 
 x:Name="textBox"
+                            Background="Transparent" BorderThickness="0"
 syntax:SyntaxBox.Enable="True"
 syntax:SyntaxBox.ExpandTabs="True"
 syntax:SyntaxBox.AutoIndent="True"
 syntax:SyntaxBox.ShowLineNumbers="True"
-syntax:SyntaxBox.LineNumbersBackground="LightGray"
-syntax:SyntaxBox.LineNumbersForeground="SlateGray"            
+syntax:SyntaxBox.LineNumbersBackground="Transparent"
+syntax:SyntaxBox.LineNumbersForeground="White"            
 AcceptsReturn="True" 
 AcceptsTab="True"
 VerticalScrollBarVisibility="Auto"
 HorizontalScrollBarVisibility="Auto"
 Padding="0,0,0,0"
+                            Foreground="White"
 FontFamily="Consolas"
 FontSize="11pt">
                             <syntax:SyntaxBox.SyntaxDrivers>
                                 <syntax:SyntaxConfig>
-                                    <!-- Keywords -->
-                                    <syntax:KeywordRule Foreground="Blue"
-            Keywords="abstract,as,base,bool,break,byte,case,catch,char,checked,class,const,continue,decimal,default,delegate,do,double,else,enum,event,explicit,extern,false,finally,fixed,float,for,foreach,goto,if,implicit,in,int,interface,internal,is,lock,long,namespace,new,null,object,operator,out,override,params,private,protected,public,readonly,ref,return,sbyte,sealed,short,sizeof,stackalloc,static,string,struct,switch,this,throw,true,try,typeof,uint,ulong,unchecked,unsafe,ushort,using,using,static,virtual,void,volatile,while,get,set,yield,var"
-        />
+                                    
+                                   
+                                    <syntax:RegexRule  Op="Line" Foreground="#33bbb0" Pattern="{StaticResource Keywords.Syntax.Nameing}"/>
+                                    <syntax:KeywordRule Foreground="#cb96f8" Keywords="{StaticResource Keywords.Syntax.1}"/>
+                                    <syntax:KeywordRule Foreground="#cb96f8" Keywords="{StaticResource Keywords.Syntax.2}"/>
+                                    
+                                    <syntax:RegexRule  Op="Block" Foreground="#d7ab59" Pattern="{StaticResource Keywords.Syntax.string}"/>
+                                    <syntax:RegexRule  Op="Block" Foreground="#9cdcda" Pattern="{StaticResource Keywords.Syntax.parametrs}"/>
 
-                                    <!-- Operators -->
-                                    <syntax:KeywordRule Foreground="Purple"
-            Keywords="!,+,-,/,*,%,=,&amp;,^,|,&lt;,&gt;"
-            WholeWordsOnly="False"
-        />
-                                    <!--<syntax:RegexRule Op="Line" Foreground="Purple" Pattern="[\!+-\/\*%=&amp;\^|\?&lt;&gt;]" />-->
 
-                                    <!-- Preproc directives -->
-                                    <syntax:RegexRule Op="Line" Foreground="Gray" Pattern="^\s*#.*" />
-
-                                    <!-- String -->
-                                    <syntax:RegexRule Op="Line" Foreground="Maroon" Pattern="&quot;(?:[^&quot;\\]|\\.)*&quot;" />
-
-                                    <!-- Verbatim string -->
-                                    <syntax:RegexRule Op="Block" Foreground="Maroon" Pattern="@&quot;(?:[^&quot;])*&quot;" />
-
-                                    <!-- Comment -->
-                                    <syntax:RegexRule Op="Line" Foreground="Green" Pattern="//.*" />
-
-                                    <!-- Multiline comment -->
-                                    <syntax:RegexRule Op="Block" Foreground="Green" Pattern="(?m)/\*[^*]*\*+(?:[^\/*][^*]*\*+)*/" />
-
+                                    <syntax:RegexRule  Op="Line" Foreground="White" Pattern="(==|=|\.|,|\)|\()"/>
+                                    <!--<syntax:KeywordRule Foreground="White" Keywords="==,-,(,),{,}"/>-->
+                                    <syntax:RegexRule Op="Line" Foreground="Green" Pattern="--.*" />
                                 </syntax:SyntaxConfig>
                             </syntax:SyntaxBox.SyntaxDrivers>
                         </TextBox>

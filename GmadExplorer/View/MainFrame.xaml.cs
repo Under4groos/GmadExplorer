@@ -61,8 +61,11 @@ namespace GmadExplorer.View
         void LoadAddon(string addon)
         {
             this.Clear();
+          
             App.Addon = RealtimeAddon.Load(addon, !FileExtensions.CanWrite(addon));
+
             Addon OpenAddon = App.Addon.OpenAddon;
+
             string AddonName = System.IO.Path.GetFileName(addon).Replace(System.IO.Path.GetExtension(addon), "") + $"_{OpenAddon.Title}";
             RenderControls(OpenAddon, AddonName, System.IO.Path.GetFileName(addon));
 
@@ -81,16 +84,8 @@ namespace GmadExplorer.View
             int C = 0;
             foreach (ContentFile item in listfiles)
             {
-                //C++;
-                //if (C > 5)
-                //    break;
                 string path_ = item.Path;
-
-                Debug.WriteLine($"\"{path_}\",");
-
-
                 string[] spl_path = path_.Split("/");
-
                 VirtualTreeViewItem rep_panel = __base;
                 string ___p = "";
                 foreach (string pp in spl_path)
@@ -103,22 +98,15 @@ namespace GmadExplorer.View
                     {
                         rep_panel = ExtControls.GetVirtualTree(lastpath);
                     }
-
-
                     var panel = string.IsNullOrEmpty(System.IO.Path.GetExtension(pp)) ?
                         VirtualTreeViewItem.Create_FolderChild(pp) : VirtualTreeViewItem.Create_FileChild(item, (VirtualTreeViewItem panel) =>
                         {
-
-
-
                             string path_export_ = ContentFile.GenerateExternalPathLocal(AddonName, panel.ContentFile.Path);
                             if (Directory.Exists(path_export_))
                             {
                                 File.WriteAllBytes(path_export_, panel.ContentFile.Content);
                             }
                             textBox.Text = path_export_ + "\n" + System.Text.Encoding.UTF8.GetString(panel.ContentFile.Content);
-
-
                         });
                     rep_panel.AppendItem(panel);
                     ExtControls.VirtualTreeAddNewPath(panel, ___p);
@@ -127,69 +115,13 @@ namespace GmadExplorer.View
             }
         }
 
-
-
         public void Clear()
         {
             _list_files.Items.Clear();
             textBox.Text = "";
+            if (App.Addon != null)
+                App.Addon.Close();
         }
-
-        //void LoadAddon(string addon)
-        //{
-
-
-        //    _list_files.Items.Clear();
-
-        //    App.Addon = RealtimeAddon.Load(addon, !FileExtensions.CanWrite(addon));
-        //    var OpenAddon = App.Addon.OpenAddon;
-
-
-        //    string FileName = System.IO.Path.GetFileName(addon).Replace(System.IO.Path.GetExtension(addon), "") + $"_{OpenAddon.Title}";
-
-
-
-        //    var list_files = OpenAddon.GetDictionaryFiles();
-        //    VirtualTreeViewItem TreeOwner = VirtualTreeViewItem.CreateChild(addon);
-        //    foreach (var item in list_files)
-        //    {
-        //        var list_path = item.Key.Split(@"\");
-
-        //        string path_ = list_path[0];
-        //        if (ExtControls.ListVirtualTreeViewItem.ContainsKey(path_))
-        //        {
-        //            continue;
-        //        }
-        //        VirtualTreeViewItem virtualTreeViewItem = new VirtualTreeViewItem()
-        //        {
-        //            Header = path_
-        //        };
-        //        //TreeOwner.AppendItem(path_, virtualTreeViewItem);
-        //        _list_files.AppendItem(path_, virtualTreeViewItem);
-
-
-
-        //        var lll_ = VirtualTreeViewItem.CreateChild_Rec(virtualTreeViewItem, list_path);
-        //        foreach (var asd in item.Value)
-        //        {
-        //            lll_.AppendItem(VirtualTreeViewItem.CreateChild(asd , (VirtualTreeViewItem mi) =>
-        //            {
-
-
-
-
-        //                string path_export_ = ContentFile.GenerateExternalPathLocal(FileName, mi.ContentFile.Path);
-        //                if (Directory.Exists(path_export_))
-        //                {
-        //                    File.WriteAllBytes(path_export_, mi.ContentFile.Content);
-        //                }
-        //                textBox.Text = path_export_ + "\n" + System.Text.Encoding.UTF8.GetString(mi.ContentFile.Content);
-
-        //            }));
-
-        //        }
-        //    }
-        //}
 
         private void DropFile(object sender, DragEventArgs e)
         {
